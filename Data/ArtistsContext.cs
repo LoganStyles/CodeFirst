@@ -14,10 +14,10 @@ namespace CodeFirst.Data
         {
         }
 
-        public virtual DbSet<Album> Albums { get; set; }
-        public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<Studio> Studios { get; set; }
-        public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<Album> Albums { get; set; } = null!;
+        public virtual DbSet<Employee> Employees { get; set; } = null!;
+        public virtual DbSet<Studio> Studios { get; set; } = null!;
+        public virtual DbSet<Tag> Tags { get; set; } = null!;
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
