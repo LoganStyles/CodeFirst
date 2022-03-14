@@ -5,21 +5,16 @@ namespace CodeFirst.Data
 {
     public partial class ArtistsContext : DbContext
     {
-        public ArtistsContext()
-        {
-        }
+        public ArtistsContext() { }
 
-        public ArtistsContext(DbContextOptions<ArtistsContext> options)
-            : base(options)
-        {
-        }
+        public ArtistsContext(DbContextOptions<ArtistsContext> options) : base(options) { }
 
         public virtual DbSet<Album> Albums { get; set; } = null!;
         public virtual DbSet<Employee> Employees { get; set; } = null!;
         public virtual DbSet<Studio> Studios { get; set; } = null!;
         public virtual DbSet<Tag> Tags { get; set; } = null!;
         public virtual DbSet<SeniorityLevel> SeniorityLevels { get; set; } = null!;
-        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -67,10 +62,15 @@ namespace CodeFirst.Data
                 }
             );
 
+            modelBuilder.Entity<Tag>().HasData(new Tag { Id = 1, Title = "Rock" });
+            modelBuilder.Entity<Tag>().HasData(new Tag { Id = 2, Title = "RnB" });
+            modelBuilder.Entity<Tag>().HasData(new Tag { Id = 3, Title = "Jazz" });
+            modelBuilder.Entity<Tag>().HasData(new Tag { Id = 4, Title = "Country" });
+            modelBuilder.Entity<Tag>().HasData(new Tag { Id = 5, Title = "Classical" });
+
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
     }
 }
