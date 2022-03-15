@@ -67,7 +67,6 @@ namespace CodeFirst.Data
             modelBuilder.Entity<Tag>().HasData(new Tag { Id = 3, Title = "Jazz" });
             modelBuilder.Entity<Tag>().HasData(new Tag { Id = 4, Title = "Country" });
             modelBuilder.Entity<Tag>().HasData(new Tag { Id = 5, Title = "Classical" });
-            modelBuilder.Entity<Tag>().HasData(new Tag { Id = 6, Title = "Heavy Metal" });
 
             OnModelCreatingPartial(modelBuilder);
         }
