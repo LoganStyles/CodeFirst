@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeFirst.Migrations
 {
     [DbContext(typeof(ArtistsContext))]
-    [Migration("20220309111305_AddedDescriptionPropToTagEntity")]
-    partial class AddedDescriptionPropToTagEntity
+    [Migration("20220315094718_AddBluesTag")]
+    partial class AddBluesTag
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,9 +73,34 @@ namespace CodeFirst.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<long>("SeniorityLevelId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("SeniorityLevelId")
+                        .IsUnique();
+
                     b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("CodeFirst.Entities.SeniorityLevel", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SeniorityLevels");
                 });
 
             modelBuilder.Entity("CodeFirst.Entities.Studio", b =>
@@ -108,10 +133,6 @@ namespace CodeFirst.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -119,6 +140,38 @@ namespace CodeFirst.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Title = "Rock"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Title = "RnB"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Title = "Jazz"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            Title = "Country"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            Title = "Classical"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            Title = "Blues"
+                        });
                 });
 
             modelBuilder.Entity("AlbumTag", b =>
@@ -146,6 +199,17 @@ namespace CodeFirst.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("CodeFirst.Entities.Employee", b =>
+                {
+                    b.HasOne("CodeFirst.Entities.SeniorityLevel", "SeniorityLevel")
+                        .WithOne("Employee")
+                        .HasForeignKey("CodeFirst.Entities.Employee", "SeniorityLevelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SeniorityLevel");
+                });
+
             modelBuilder.Entity("CodeFirst.Entities.Studio", b =>
                 {
                     b.HasOne("CodeFirst.Entities.Employee", "Employee")
@@ -161,6 +225,12 @@ namespace CodeFirst.Migrations
                     b.Navigation("Albums");
 
                     b.Navigation("Studio")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CodeFirst.Entities.SeniorityLevel", b =>
+                {
+                    b.Navigation("Employee")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

@@ -4,22 +4,22 @@
 
 namespace CodeFirst.Migrations
 {
-    public partial class ChangedTagDescriptionToDetails : Migration
+    public partial class AddBluesTag : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "Description",
+            migrationBuilder.InsertData(
                 table: "Tags",
-                newName: "Details");
+                columns: new[] { "Id", "Title" },
+                values: new object[] { 6L, "Blues" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "Details",
+            migrationBuilder.DeleteData(
                 table: "Tags",
-                newName: "Description");
+                keyColumn: "Id",
+                keyValue: 6L);
         }
     }
 }

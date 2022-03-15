@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeFirst.Migrations
 {
     [DbContext(typeof(ArtistsContext))]
-    [Migration("20220314114807_PopulateSeniorityLevelTable")]
-    partial class PopulateSeniorityLevelTable
+    [Migration("20220315094012_ResetMigrations")]
+    partial class ResetMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

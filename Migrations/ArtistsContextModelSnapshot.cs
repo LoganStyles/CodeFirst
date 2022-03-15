@@ -168,7 +168,7 @@ namespace CodeFirst.Migrations
                         new
                         {
                             Id = 6L,
-                            Title = "Heavy Metal"
+                            Title = "Blues"
                         });
                 });
 
