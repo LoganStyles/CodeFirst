@@ -14,6 +14,7 @@ namespace CodeFirst.Data
         public virtual DbSet<Studio> Studios { get; set; } = null!;
         public virtual DbSet<Tag> Tags { get; set; } = null!;
         public virtual DbSet<SeniorityLevel> SeniorityLevels { get; set; } = null!;
+        public virtual DbSet<Publisher> Publishers { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

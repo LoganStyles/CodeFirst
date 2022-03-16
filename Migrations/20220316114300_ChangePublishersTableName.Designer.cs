@@ -2,6 +2,7 @@
 using CodeFirst.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeFirst.Migrations
 {
     [DbContext(typeof(ArtistsContext))]
-    partial class ArtistsContextModelSnapshot : ModelSnapshot
+    [Migration("20220316114300_ChangePublishersTableName")]
+    partial class ChangePublishersTableName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.2");
@@ -51,7 +53,7 @@ namespace CodeFirst.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Albums", (string)null);
+                    b.ToTable("Albums");
                 });
 
             modelBuilder.Entity("CodeFirst.Entities.Employee", b =>
@@ -79,7 +81,7 @@ namespace CodeFirst.Migrations
                     b.HasIndex("SeniorityLevelId")
                         .IsUnique();
 
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("CodeFirst.Entities.Publisher", b =>
@@ -98,7 +100,7 @@ namespace CodeFirst.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tbl_Publishers", (string)null);
+                    b.ToTable("tbl_Publishers");
                 });
 
             modelBuilder.Entity("CodeFirst.Entities.SeniorityLevel", b =>
@@ -117,7 +119,7 @@ namespace CodeFirst.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SeniorityLevels", (string)null);
+                    b.ToTable("SeniorityLevels");
                 });
 
             modelBuilder.Entity("CodeFirst.Entities.Studio", b =>
@@ -141,7 +143,7 @@ namespace CodeFirst.Migrations
                     b.HasIndex("EmployeeId")
                         .IsUnique();
 
-                    b.ToTable("Studios", (string)null);
+                    b.ToTable("Studios");
                 });
 
             modelBuilder.Entity("CodeFirst.Entities.Tag", b =>
@@ -156,7 +158,7 @@ namespace CodeFirst.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
 
                     b.HasData(
                         new
