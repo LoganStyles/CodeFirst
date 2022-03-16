@@ -15,6 +15,7 @@ namespace CodeFirst.Data
         public virtual DbSet<Tag> Tags { get; set; } = null!;
         public virtual DbSet<SeniorityLevel> SeniorityLevels { get; set; } = null!;
         public virtual DbSet<Publisher> Publishers { get; set; } = null!;
+        public virtual DbSet<SalesOutlet> SalesOutlets { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -69,6 +70,8 @@ namespace CodeFirst.Data
             modelBuilder.Entity<Tag>().HasData(new Tag { Id = 4, Title = "Country" });
             modelBuilder.Entity<Tag>().HasData(new Tag { Id = 5, Title = "Classical" });
             modelBuilder.Entity<Tag>().HasData(new Tag { Id = 6, Title = "Blues" });
+
+            modelBuilder.Entity<SalesOutlet>().ToTable("tbl_SalesOutlets");
 
             OnModelCreatingPartial(modelBuilder);
         }
