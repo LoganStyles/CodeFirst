@@ -13,6 +13,7 @@ namespace CodeFirst.Entities
         [Key]
         public long Id { get; set; }
         public string Title { get; set; } = null!;
+        [Precision(18, 2)]
         public double Price { get; set; }
         public long EmployeeId { get; set; }
 

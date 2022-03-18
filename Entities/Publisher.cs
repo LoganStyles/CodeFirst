@@ -14,5 +14,8 @@ namespace CodeFirst.Entities
 
         [Required]
         public string Address { get; set; } = null!;
+
+        [NotMapped]
+        public string State { get; set; } = null!;
     }
 }
