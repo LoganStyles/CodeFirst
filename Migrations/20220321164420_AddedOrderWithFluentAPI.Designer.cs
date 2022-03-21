@@ -2,6 +2,7 @@
 using CodeFirst.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeFirst.Migrations
 {
     [DbContext(typeof(ArtistsContext))]
-    partial class ArtistsContextModelSnapshot : ModelSnapshot
+    [Migration("20220321164420_AddedOrderWithFluentAPI")]
+    partial class AddedOrderWithFluentAPI
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.2");
@@ -247,12 +249,7 @@ namespace CodeFirst.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("SalesOutletId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("TrackingId");
-
-                    b.HasIndex("SalesOutletId");
 
                     b.ToTable("Orders");
                 });
@@ -303,28 +300,12 @@ namespace CodeFirst.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("CodeFirst.Order", b =>
-                {
-                    b.HasOne("CodeFirst.Entities.SalesOutlet", "SalesOutlet")
-                        .WithMany("Orders")
-                        .HasForeignKey("SalesOutletId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SalesOutlet");
-                });
-
             modelBuilder.Entity("CodeFirst.Entities.Employee", b =>
                 {
                     b.Navigation("Albums");
 
                     b.Navigation("Studio")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CodeFirst.Entities.SalesOutlet", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("CodeFirst.Entities.SeniorityLevel", b =>

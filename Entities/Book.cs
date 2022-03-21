@@ -8,5 +8,6 @@ namespace CodeFirst.Entities
         public long ISBN { get; set; }
 
         public string Title { get; set; } = null!;
+        public double Price { get; set; }
     }
 }

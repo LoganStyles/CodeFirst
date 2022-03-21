@@ -16,6 +16,7 @@ namespace CodeFirst.Data
         public virtual DbSet<SeniorityLevel> SeniorityLevels { get; set; } = null!;
         public virtual DbSet<Publisher> Publishers { get; set; } = null!;
         public virtual DbSet<SalesOutlet> SalesOutlets { get; set; } = null!;
+        public virtual DbSet<Order> Orders { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -71,7 +72,21 @@ namespace CodeFirst.Data
             modelBuilder.Entity<Tag>().HasData(new Tag { Id = 5, Title = "Classical" });
             modelBuilder.Entity<Tag>().HasData(new Tag { Id = 6, Title = "Blues" });
 
-            modelBuilder.Entity<SalesOutlet>().ToTable("tbl_SalesOutlets");
+            modelBuilder.Entity<SalesOutlet>().ToTable("tbl_SalesOutlets").Ignore(s=>s.State);
+            modelBuilder.Entity<SalesOutlet>().Property(s => s.Name)
+            .HasColumnName("Title")
+            .HasComment("The name of the outlet")
+            .HasColumnType("varchar(200)")
+            .HasMaxLength(200)
+            .HasPrecision(10,2);
+
+            modelBuilder.Entity<Book>().Property(b => b.Price).HasPrecision(10, 2);
+
+            modelBuilder.Entity<Order>().HasKey(o => o.TrackingId);
+            
+            modelBuilder.Entity<Order>()
+            .HasOne(p => p.SalesOutlet)
+            .WithMany(b => b.Orders);
 
             OnModelCreatingPartial(modelBuilder);
         }

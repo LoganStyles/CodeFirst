@@ -7,5 +7,7 @@ namespace CodeFirst.Entities
         public string Name { get; set; } = null!;
 
         public string Address { get; set; } = null!;
+        public string State { get; set; } = null!;
+        public List<Order> Orders { get; set; } = null!;
      }
 }
