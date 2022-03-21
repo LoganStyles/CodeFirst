@@ -2,6 +2,7 @@
 using CodeFirst.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeFirst.Migrations
 {
     [DbContext(typeof(ArtistsContext))]
-    partial class ArtistsContextModelSnapshot : ModelSnapshot
+    [Migration("20220318182104_AddedCommentsToPublisher")]
+    partial class AddedCommentsToPublisher
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.2");
@@ -91,14 +93,12 @@ namespace CodeFirst.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(200)
                         .HasColumnType("TEXT")
                         .HasComment("The address of the publisher");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(200)")
-                        .HasColumnName("Title");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
