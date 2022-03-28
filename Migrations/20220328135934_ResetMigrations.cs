@@ -9,6 +9,28 @@ namespace CodeFirst.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Book",
+                columns: table =>
+                    new
+                    {
+                        ISBN = table
+                            .Column<long>(type: "INTEGER", nullable: false)
+                            .Annotation("Sqlite:Autoincrement", true),
+                        Title = table.Column<string>(type: "TEXT", nullable: false),
+                        Price = table.Column<double>(
+                            type: "REAL",
+                            precision: 10,
+                            scale: 2,
+                            nullable: false
+                        )
+                    },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Book", x => x.ISBN);
+                }
+            );
+
+            migrationBuilder.CreateTable(
                 name: "SeniorityLevels",
                 columns: table =>
                     new
@@ -42,6 +64,52 @@ namespace CodeFirst.Migrations
             );
 
             migrationBuilder.CreateTable(
+                name: "tbl_Publishers",
+                columns: table =>
+                    new
+                    {
+                        Id = table
+                            .Column<long>(type: "INTEGER", nullable: false)
+                            .Annotation("Sqlite:Autoincrement", true),
+                        Title = table.Column<string>(type: "varchar(200)", nullable: false),
+                        Address = table.Column<string>(
+                            type: "TEXT",
+                            maxLength: 200,
+                            nullable: false,
+                            comment: "The address of the publisher"
+                        )
+                    },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tbl_Publishers", x => x.Id);
+                }
+            );
+
+            migrationBuilder.CreateTable(
+                name: "tbl_SalesOutlets",
+                columns: table =>
+                    new
+                    {
+                        Id = table
+                            .Column<long>(type: "INTEGER", nullable: false)
+                            .Annotation("Sqlite:Autoincrement", true),
+                        Title = table.Column<string>(
+                            type: "varchar(200)",
+                            maxLength: 200,
+                            precision: 10,
+                            scale: 2,
+                            nullable: false,
+                            comment: "The name of the outlet"
+                        ),
+                        Address = table.Column<string>(type: "TEXT", nullable: false)
+                    },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tbl_SalesOutlets", x => x.Id);
+                }
+            );
+
+            migrationBuilder.CreateTable(
                 name: "Employees",
                 columns: table =>
                     new
@@ -68,6 +136,30 @@ namespace CodeFirst.Migrations
             );
 
             migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table =>
+                    new
+                    {
+                        TrackingId = table
+                            .Column<long>(type: "INTEGER", nullable: false)
+                            .Annotation("Sqlite:Autoincrement", true),
+                        Name = table.Column<string>(type: "TEXT", nullable: false),
+                        SalesOutletId = table.Column<long>(type: "INTEGER", nullable: false)
+                    },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.TrackingId);
+                    table.ForeignKey(
+                        name: "FK_Orders_tbl_SalesOutlets_SalesOutletId",
+                        column: x => x.SalesOutletId,
+                        principalTable: "tbl_SalesOutlets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade
+                    );
+                }
+            );
+
+            migrationBuilder.CreateTable(
                 name: "Albums",
                 columns: table =>
                     new
@@ -76,7 +168,12 @@ namespace CodeFirst.Migrations
                             .Column<long>(type: "INTEGER", nullable: false)
                             .Annotation("Sqlite:Autoincrement", true),
                         Title = table.Column<string>(type: "TEXT", nullable: false),
-                        Price = table.Column<double>(type: "REAL", nullable: false),
+                        Price = table.Column<double>(
+                            type: "REAL",
+                            precision: 18,
+                            scale: 2,
+                            nullable: false
+                        ),
                         EmployeeId = table.Column<long>(type: "INTEGER", nullable: false)
                     },
                 constraints: table =>
@@ -173,6 +270,12 @@ namespace CodeFirst.Migrations
                 values: new object[] { 5L, "Classical" }
             );
 
+            migrationBuilder.InsertData(
+                table: "Tags",
+                columns: new[] { "Id", "Title" },
+                values: new object[] { 6L, "Blues" }
+            );
+
             migrationBuilder.CreateIndex(
                 name: "IX_Albums_EmployeeId",
                 table: "Albums",
@@ -190,6 +293,12 @@ namespace CodeFirst.Migrations
                 table: "Employees",
                 column: "SeniorityLevelId",
                 unique: true
+            );
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_SalesOutletId",
+                table: "Orders",
+                column: "SalesOutletId"
             );
 
             migrationBuilder.CreateIndex(
@@ -220,11 +329,19 @@ namespace CodeFirst.Migrations
         {
             migrationBuilder.DropTable(name: "AlbumTags");
 
+            migrationBuilder.DropTable(name: "Book");
+
+            migrationBuilder.DropTable(name: "Orders");
+
             migrationBuilder.DropTable(name: "Studios");
+
+            migrationBuilder.DropTable(name: "tbl_Publishers");
 
             migrationBuilder.DropTable(name: "Albums");
 
             migrationBuilder.DropTable(name: "Tags");
+
+            migrationBuilder.DropTable(name: "tbl_SalesOutlets");
 
             migrationBuilder.DropTable(name: "Employees");
 

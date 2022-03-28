@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodeFirst.Migrations
 {
     [DbContext(typeof(ArtistsContext))]
-    [Migration("20220316183553_AddedNotMappedAttributeToPublisher")]
-    partial class AddedNotMappedAttributeToPublisher
+    [Migration("20220328135934_ResetMigrations")]
+    partial class ResetMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,6 +43,7 @@ namespace CodeFirst.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<double>("Price")
+                        .HasPrecision(18, 2)
                         .HasColumnType("REAL");
 
                     b.Property<string>("Title")
@@ -54,6 +55,25 @@ namespace CodeFirst.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("Albums");
+                });
+
+            modelBuilder.Entity("CodeFirst.Entities.Book", b =>
+                {
+                    b.Property<long>("ISBN")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Price")
+                        .HasPrecision(10, 2)
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ISBN");
+
+                    b.ToTable("Book");
                 });
 
             modelBuilder.Entity("CodeFirst.Entities.Employee", b =>
@@ -92,11 +112,14 @@ namespace CodeFirst.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT")
+                        .HasComment("The address of the publisher");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("varchar(200)")
+                        .HasColumnName("Title");
 
                     b.HasKey("Id");
 
@@ -115,7 +138,11 @@ namespace CodeFirst.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(200)
+                        .HasPrecision(10, 2)
+                        .HasColumnType("varchar(200)")
+                        .HasColumnName("Title")
+                        .HasComment("The name of the outlet");
 
                     b.HasKey("Id");
 
@@ -212,6 +239,26 @@ namespace CodeFirst.Migrations
                         });
                 });
 
+            modelBuilder.Entity("CodeFirst.Order", b =>
+                {
+                    b.Property<long>("TrackingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("SalesOutletId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("TrackingId");
+
+                    b.HasIndex("SalesOutletId");
+
+                    b.ToTable("Orders");
+                });
+
             modelBuilder.Entity("AlbumTag", b =>
                 {
                     b.HasOne("CodeFirst.Entities.Album", null)
@@ -258,12 +305,28 @@ namespace CodeFirst.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("CodeFirst.Order", b =>
+                {
+                    b.HasOne("CodeFirst.Entities.SalesOutlet", "SalesOutlet")
+                        .WithMany("Orders")
+                        .HasForeignKey("SalesOutletId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SalesOutlet");
+                });
+
             modelBuilder.Entity("CodeFirst.Entities.Employee", b =>
                 {
                     b.Navigation("Albums");
 
                     b.Navigation("Studio")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CodeFirst.Entities.SalesOutlet", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("CodeFirst.Entities.SeniorityLevel", b =>
