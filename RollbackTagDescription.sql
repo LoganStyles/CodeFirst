@@ -30,3 +30,5 @@ WHERE "MigrationId" = '20220309111305_AddedDescriptionPropToTagEntity';
 
 COMMIT;
 
+
+

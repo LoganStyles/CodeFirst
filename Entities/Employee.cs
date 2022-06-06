@@ -23,3 +23,6 @@ namespace CodeFirst.Entities
         public virtual ICollection<Album> Albums { get; set; }
     }
 }
+
+
+
