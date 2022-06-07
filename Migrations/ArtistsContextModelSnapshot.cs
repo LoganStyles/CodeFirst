@@ -164,11 +164,6 @@ namespace CodeFirst.Migrations
                         {
                             Id = 5L,
                             Title = "Classical"
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            Title = "Heavy Metal"
                         });
                 });
 
@@ -235,3 +230,6 @@ namespace CodeFirst.Migrations
         }
     }
 }
+
+
+
