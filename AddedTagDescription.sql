@@ -7,3 +7,5 @@ VALUES ('20220309111305_AddedDescriptionPropToTagEntity', '6.0.2');
 
 COMMIT;
 
+
+

@@ -52,3 +52,5 @@ VALUES ('20220308164733_InitialMigration', '6.0.2');
 
 COMMIT;
 
+
+
