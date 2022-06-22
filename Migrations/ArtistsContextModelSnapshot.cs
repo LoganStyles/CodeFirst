@@ -206,11 +206,14 @@ namespace CodeFirst.Migrations
                         {
                             Id = 5L,
                             Title = "Classical"
+<<<<<<< HEAD
                         },
                         new
                         {
                             Id = 6L,
                             Title = "Blues"
+=======
+>>>>>>> CodeFirstRemoveRevertedMigration
                         });
                 });
 
@@ -277,3 +280,6 @@ namespace CodeFirst.Migrations
         }
     }
 }
+
+
+

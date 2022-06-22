@@ -3,15 +3,18 @@ using CodeFirst.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace CodeFirst.Migrations
 {
     [DbContext(typeof(ArtistsContext))]
-    [Migration("20220316114300_ChangePublishersTableName")]
-    partial class ChangePublishersTableName
+<<<<<<<< HEAD:Migrations/20220315094012_ResetMigrations.Designer.cs
+    [Migration("20220315094012_ResetMigrations")]
+========
+    [Migration("20220607014118_ResetMigrations")]
+>>>>>>>> CodeFirstRemoveRevertedMigration:Migrations/20220607014118_ResetMigrations.Designer.cs
+    partial class ResetMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -82,25 +85,6 @@ namespace CodeFirst.Migrations
                         .IsUnique();
 
                     b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("CodeFirst.Entities.Publisher", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("tbl_Publishers");
                 });
 
             modelBuilder.Entity("CodeFirst.Entities.SeniorityLevel", b =>
@@ -185,11 +169,6 @@ namespace CodeFirst.Migrations
                         {
                             Id = 5L,
                             Title = "Classical"
-                        },
-                        new
-                        {
-                            Id = 6L,
-                            Title = "Blues"
                         });
                 });
 
@@ -256,3 +235,6 @@ namespace CodeFirst.Migrations
         }
     }
 }
+
+
+

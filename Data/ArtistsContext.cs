@@ -21,7 +21,7 @@ namespace CodeFirst.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite("data source=Artists.db");
+                optionsBuilder.UseSqlite("data source=output/Artists.db");
             }
         }
 
@@ -79,3 +79,6 @@ namespace CodeFirst.Data
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
+
+
+

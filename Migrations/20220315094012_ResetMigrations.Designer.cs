@@ -3,14 +3,17 @@ using CodeFirst.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace CodeFirst.Migrations
 {
     [DbContext(typeof(ArtistsContext))]
+<<<<<<<< HEAD:Migrations/20220315094012_ResetMigrations.Designer.cs
     [Migration("20220315094012_ResetMigrations")]
+========
+    [Migration("20220607014118_ResetMigrations")]
+>>>>>>>> CodeFirstRemoveRevertedMigration:Migrations/20220607014118_ResetMigrations.Designer.cs
     partial class ResetMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -232,3 +235,6 @@ namespace CodeFirst.Migrations
         }
     }
 }
+
+
+
