@@ -15,6 +15,11 @@ namespace CodeFirst.Entities
         public string FirstName { get; set; }= null!;
         public string LastName { get; set; }= null!;
         public long Age { get; set; }
+        public long SeniorityLevelId { get; set; }
+
+        [ForeignKey(nameof(SeniorityLevelId))]
+        [InverseProperty("Employee")]
+        public virtual SeniorityLevel SeniorityLevel { get; set; } = null!;
 
         [InverseProperty("Employee")]
         public virtual Studio Studio { get; set; }= null!;
