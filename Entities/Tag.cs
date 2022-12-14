@@ -15,7 +15,7 @@ namespace CodeFirst.Entities
         public string Title { get; set; }= null!;
         
         // public string Description { get; set; }= null!;
-        public string Details { get; set; }= null!;
+        // public string Details { get; set; }= null!;
 
         [ForeignKey("TagId")]
         [InverseProperty(nameof(Album.Tags))]
